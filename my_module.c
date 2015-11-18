@@ -45,21 +45,12 @@ int init_module(void)
 		printk(KERN_WARNING "can't get dynamic major\n");
 		return my_major;
     }
-	
-    //
-    // do_init();
-    //
     return 0;
 }
 /***************************************************************/
 void cleanup_module(void)
 {
     unregister_chrdev(my_major, MY_DEVICE);
-
-	
-    //
-    // do clean_up();
-    //
     return;
 }
 /***************************************************************/
@@ -70,22 +61,8 @@ int my_open(struct inode *inode, struct file *filp)
 	}
 	deviceOpen++;
 	buffer = kmalloc(SIZE_BUFFER * sizeof(char), GFP_KERNEL);
-	writePivot = 0; //move to global.
+	writePivot = 0; 
 	readPivot = 0;
-	printk("my_open: writePivot = %d, readPivot = %d\n", writePivot, readPivot);
-    if (filp->f_mode & FMODE_READ)
-    {
-		//
-		// handle read opening
-		//
-    }
-    
-    if (filp->f_mode & FMODE_WRITE)
-    {
-        //
-        // handle write opening
-        //
-    }
 	MOD_INC_USE_COUNT;
     return 0;
 }
@@ -94,29 +71,14 @@ int my_release(struct inode *inode, struct file *filp)
 {
 	kfree(buffer);
 	deviceOpen--;
-    if (filp->f_mode & FMODE_READ)
-    {
-		//
-		// handle read closing
-		// 
-    }
-    
-    if (filp->f_mode & FMODE_WRITE)
-    {
-        //
-        // handle write closing
-        //
-    }
 	MOD_DEC_USE_COUNT;
     return 0;
 }
 /***************************************************************/
-/*
-* @param buf: the buffer to add the read chars to.
-* @param count: the number of chars to be read. */
+// @param buf: the buffer to add the read chars to.
+// @param count: the number of chars to be read.
 ssize_t my_read(struct file *filp, char *buf, size_t count, loff_t *f_pos)
 {
-	printk("in my_read\n");
 	if((buf == NULL) || (count < 0)) {
 		return 0;
 	}		
@@ -144,7 +106,6 @@ ssize_t my_read(struct file *filp, char *buf, size_t count, loff_t *f_pos)
 // @return: number of bytes written to the buffer. 
 ssize_t my_write(struct file *filp, const char *buf, size_t count, loff_t *f_pos)
 {	
-	printk("my_write: writing %s", buf);
 	if((buf == NULL) || (count < 0)) {
 		printk(KERN_WARNING "ERROR: Invalid arguments in function my_write\n");
     	return -EINVAL;
@@ -175,6 +136,5 @@ int my_ioctl(struct inode *inode, struct file *filp, unsigned int cmd, unsigned 
     default:
 		return -ENOTTY;
     }
-
     return 0;
 }
