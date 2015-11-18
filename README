@@ -1,0 +1,16 @@
+**********************************************************************
+Welcome To My LKM Char Device!
+**********************************************************************
+Author: Bassam, bassam.yasin@gmail
+----------------------------------------------------------------------
+INSTRUCTIONS
+----------------------------------------------------------------------
+
+1) Installation:
+	simply run the script 'script.mak'
+	This script makes the executable binary from the *.c and *.h 
+	and creates an LKM of the char device
+
+2) Testing: 
+	I provided a rather simple test  in python.
+	You change or add to it however you want
