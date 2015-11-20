@@ -4,8 +4,8 @@ MODULE='my_module'
 DEVICE='my_device0'
 MY_DEVICE='my_device'
 MINOR=0
-echo "---------------installing your char device---------------"
 
+echo "---------------installing your char device---------------"
 #remove the device if exist:
 rm -f /dev/$DEVICE
 rmmod $MODULE 
@@ -13,7 +13,7 @@ rmmod $MODULE
 #install the device:
 echo "making your code:"
 echo "executing Makefile..."
-mae clean
+make clean
 make
 
 insmod ./my_module.o
